@@ -129,6 +129,9 @@ table.st th:first-child,table.st td:first-child{text-align:left}
 .legal h2{font-size:1rem;margin-bottom:6px}
 .legal ul{margin:6px 0 0;padding-left:1.2em}
 .legal li{margin:5px 0}
+.legal .stamp{display:inline-block;border:2px solid var(--ink);padding:4px 10px;font-weight:700;margin:2px 0 8px}
+.stale{display:block;color:var(--red);font-weight:700;margin-top:6px}
+.stale:empty{display:none}
 .foot p{margin:.5em 0}
 .foot a{color:var(--blue)}
 .cta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
@@ -241,7 +244,7 @@ table.st th:first-child,table.st td:first-child{text-align:left}
     <p>Conservi questo foglio. Potrebbe aver bisogno di leggerlo di nuovo quando arriva la prima rata.</p>
     <p>Se uno qualsiasi degli effetti indesiderati peggiora, si rivolga a un consulente indipendente o almeno a un secondo PIES.</p>
   </div>
-  <p class="legalnote"><b>Strumento informativo, esemplificativo e satirico.</b> Non è consulenza e non sostituisce i documenti e i conteggi della banca: le decisioni restano tue. <a href="#avvertenze">Leggi le avvertenze legali</a>.</p>
+  <p class="legalnote"><b>Strumento informativo, esemplificativo e satirico, con finalità anche ludiche.</b> Non sostituisce un professionista abilitato né i documenti e i conteggi della banca: serve a capire meglio e ad approfondire le condizioni prima di firmare. Le decisioni restano tue. <b>Informazioni aggiornate a ottobre 2026.</b><span class="stale" id="stale"></span> <a href="#avvertenze">Leggi le avvertenze legali</a>.</p>
 
   <section class="brief" aria-labelledby="hBrief"><h2 id="hBrief">In breve</h2><div id="brief"></div></section>
 
@@ -262,15 +265,16 @@ table.st th:first-child,table.st td:first-child{text-align:left}
 </div>
 <footer class="foot">
   <section class="legal" id="avvertenze" aria-labelledby="hLegal">
-    <h2 id="hLegal">Avvertenze legali (da leggere davvero)</h2>
-    <p>Il Bugiardino del Mutuo è uno strumento gratuito a scopo esclusivamente informativo, esemplificativo e satirico. Il tono ironico è voluto; i numeri sono stime.</p>
+    <h2 id="hLegal">Avvertenze legali ed esonero di responsabilità</h2>
+    <p class="stamp">Data di aggiornamento: ottobre 2026 (ultima verifica delle fonti: 20 ottobre 2026)</p>
+    <p>Il Bugiardino del Mutuo è uno strumento gratuito, fornito “così com’è”, a scopo esclusivamente informativo, esemplificativo e satirico, con finalità anche ludiche. Serve a capire meglio un’offerta e ad approfondirne le condizioni con chi di dovere. Il tono ironico è voluto; i numeri sono stime.</p>
     <ul>
-      <li>Non costituisce consulenza finanziaria, creditizia, fiscale, assicurativa o legale, né offerta, raccomandazione o sollecitazione all’acquisto di prodotti finanziari o assicurativi. Non sostituisce il PIES, i documenti di trasparenza, il contratto e i conteggi ufficiali della banca, né il parere di un professionista abilitato.</li>
-      <li>I calcoli si basano su ipotesi semplificate (ammortamento alla francese, rate mensili, tassi costanti negli scenari, valori di esempio dove non inseriti) e sui dati inseriti dall’utente, che ne è il solo responsabile. I risultati possono differire, anche in modo rilevante, da quelli reali.</li>
-      <li>Norme, aliquote e limiti sono riportati in forma sintetica, verificati al 20 ottobre 2026; possono cambiare, avere eccezioni o non applicarsi al tuo caso.</li>
+      <li><b>Non sostituisce un professionista.</b> Non sostituisce in alcun modo il parere di un professionista abilitato (consulente finanziario o creditizio, notaio, commercialista, avvocato), né il PIES, i documenti di trasparenza, il contratto e i conteggi ufficiali della banca. Non costituisce consulenza finanziaria, creditizia, fiscale, assicurativa o legale, né offerta, raccomandazione o sollecitazione all’acquisto di prodotti finanziari o assicurativi.</li>
+      <li><b>Informazioni datate.</b> Norme, aliquote, soglie, agevolazioni, garanzie pubbliche, tassi di riferimento e prassi sono riportati in forma sintetica e aggiornati a ottobre 2026. Possono cambiare in qualsiasi momento per nuove leggi, decreti, interpretazioni o condizioni di mercato. Lo strumento non si aggiorna da solo e gli autori non si impegnano ad aggiornarlo: dopo questa data alcune informazioni potrebbero non essere più valide.</li>
+      <li><b>Calcoli indicativi.</b> I calcoli si basano su ipotesi semplificate (ammortamento alla francese, rate mensili, tassi costanti negli scenari, valori di esempio dove non inseriti) e sui dati inseriti dall’utente, che ne è il solo responsabile. Non sono garantite l’esattezza, la completezza né l’idoneità dei risultati a uno scopo specifico; i risultati possono differire, anche in modo rilevante, da quelli reali.</li>
       <li>Le battute riguardano pratiche commerciali diffuse e non si riferiscono ad alcuna banca, compagnia assicurativa, intermediario o persona determinata.</li>
-      <li>Nei limiti massimi consentiti dalla legge, gli autori non rispondono di decisioni prese o non prese sulla base di questo strumento, né di danni diretti o indiretti derivanti dal suo uso o dall’impossibilità di usarlo. Prima di firmare verifica ogni dato con la banca e con un consulente di tua fiducia.</li>
-      <li>Usando lo strumento dichiari di aver letto e compreso queste avvertenze.</li>
+      <li><b>Esonero di responsabilità.</b> Nei limiti massimi consentiti dalla legge, gli autori non rispondono di alcun danno, diretto o indiretto, derivante dall’uso o dal mancato uso dello strumento o dall’impossibilità di usarlo, da decisioni prese o non prese sulla base dei suoi risultati, da errori od omissioni, né da informazioni non più attuali, comprese le modifiche del quadro normativo, fiscale o di mercato successive a ottobre 2026. Ogni decisione resta tua: prima di firmare verifica ogni dato con la banca e con un professionista di tua fiducia.</li>
+      <li>Usando lo strumento dichiari di aver letto, compreso e accettato queste avvertenze.</li>
     </ul>
   </section>
   <p>Il Bugiardino non registra niente da nessuna parte: i dati restano solo in questo browser.</p>
@@ -285,6 +289,8 @@ table.st th:first-child,table.st td:first-child{text-align:left}
 (function(){
 "use strict";
 var KEY="bugiardino-mutuo-v1";
+/* Data di aggiornamento delle informazioni: cambiarla a ogni revisione delle fonti */
+var AGG={label:"ottobre 2026",date:new Date(2026,9,20),staleMonths:6};
 /* ---------- Valori di esempio (modificabili) ---------- */
 var DEF={prezzo:250000,capitale:200000,anni:30,tipo:"fisso",tan:3.5,euribor:2.5,spread:1.0,reddito:3200,
   taegB:"",istr:1000,perizia:300,notaio:2000,incasso:2,comun:0,incendio:150,vita:0,vitaReq:false,conto:0,
@@ -452,6 +458,8 @@ function render(){
   var r=compute(),b=r.base,c=r.c,h;
   $("prod").textContent="Capitale "+eur(r.C)+" a rilascio prolungato per "+r.fin.l+(r.green?" (green)":"")+", "+r.N+" anni, tasso "+(r.variab?"variabile ":"fisso ")+pct(r.tasso);
   $("finNote").textContent=r.fin.t;
+  var mesi=Math.floor((Date.now()-AGG.date.getTime())/(1000*60*60*24*30.44));
+  $("stale").textContent=mesi>=AGG.staleMonths?"Attenzione: sono passati circa "+mesi+" mesi dall’ultimo aggiornamento. Norme, soglie e tassi potrebbero essere cambiati: questo foglio potrebbe essere scaduto.":"";
   $("rowSurPrima").style.display=r.sur?"":"none";$("rowSconto").style.display=S.green?"":"none";
   $("fsConsap").style.display=(r.fk==="acq1"||r.sur)?"":"none";
   document.querySelectorAll(".cons").forEach(function(e){e.style.display=S.consap?"":"none";});
@@ -571,7 +579,7 @@ function render(){
   $("s9").innerHTML=ci.length?'<p>Non firmare, o almeno non oggi, se:</p><ul class="contra">'+ci.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul>':'<p>Con i dati inseriti non emergono controindicazioni gravi. Questo non è un via libera: è l’assenza di allarmi evidenti.</p>';
 
   /* 10 scadenza */
-  $("s10").innerHTML='<p>Il PIES ha una data di validità: dopo quella, l’offerta può cambiare. Chiedi il PIES ad almeno due banche e confrontali voce per voce, non rata per rata.</p><p>Conservare questo foglio lontano dalla fretta. Il giorno del rogito non è il giorno giusto per leggere il contratto.</p>';
+  $("s10").innerHTML='<p>Il PIES ha una data di validità: dopo quella, l’offerta può cambiare. Chiedi il PIES ad almeno due banche e confrontali voce per voce, non rata per rata.</p><p>Conservare questo foglio lontano dalla fretta. Il giorno del rogito non è il giorno giusto per leggere il contratto.</p><p>Anche questo foglio ha una scadenza: le informazioni sono aggiornate a ottobre 2026. Leggi, poi verifica con chi lo fa di mestiere.</p>';
 
   /* verdetto */
   $("verdict").textContent=(over?"Controindicato. ":"")+vi;
@@ -611,7 +619,8 @@ function buildPdf(){
 
   /* --- intestazione a tutta larghezza --- */
   F(7.5,"bold",K.ink);doc.text("FOGLIO ILLUSTRATIVO: INFORMAZIONI PER IL MUTUATARIO",M,y+3);
-  F(7,"normal",K.muted);doc.text("Generato il "+new Date().toLocaleDateString("it-IT"),PW-M,y+3,{align:"right"});y+=6;
+  F(7,"normal",K.muted);doc.text("Generato il "+new Date().toLocaleDateString("it-IT"),PW-M,y+3,{align:"right"});
+  F(7,"bold",K.ink);doc.text("Informazioni aggiornate a "+AGG.label,PW-M,y+6.2,{align:"right"});y+=6;
   F(30,"bold",K.ink);doc.text("Mutuo",M,y+10);var tw=doc.getTextWidth("Mutuo");F(10,"bold",K.ink);doc.text("®",M+tw+0.8,y+4);y+=13;
   full(txt($("prod")),{size:9,color:K.muted,after:2});
   hline(M,PW-M,y,0.6,K.ink);hline(M,PW-M,y+0.9,0.25,K.ink);y+=4;
@@ -681,8 +690,8 @@ function buildPdf(){
   vl.forEach(function(l){F(11,"bold",K.ink);doc.text(l,X()+3,yy+LH(11)*0.78);yy+=LH(11);});
   vl2.forEach(function(l){F(6.8,"italic",K.muted);doc.text(l,X()+3,yy+LH(6.8)*0.78);yy+=LH(6.8);});y+=vh+4;
   /* avvertenze legali */
-  var lg=document.querySelector(".legal");brk(LH(8.5)+LH(6.6)*4);F(8.5,"bold",K.ink);doc.text(txt(lg.querySelector("h2")),X(),y+LH(8.5)*0.78);y+=LH(8.5)+0.8;
-  para(txt(lg.querySelector("p")),{size:6.6,color:K.ink});
+  var lg=document.querySelector(".legal");brk(LH(8.5)*2+LH(6.6)*4);para(txt(lg.querySelector("h2")),{size:8.5,style:"bold",after:0.8});
+  [].forEach.call(lg.querySelectorAll("p"),function(p){para(txt(p),{size:6.6,style:p.classList.contains("stamp")?"bold":"normal",color:K.ink});});
   [].forEach.call(lg.querySelectorAll("li"),function(li){var s=6.6,ls=doc.splitTextToSize(txt(li),CW-3.5);ls.forEach(function(l,i){brk(LH(s));F(s,"normal",K.ink);if(i===0)doc.text("•",X()+0.3,y+LH(s)*0.78);doc.text(l,X()+3.5,y+LH(s)*0.78);y+=LH(s);});y+=0.6;});
   y+=1.5;
   [].forEach.call(document.querySelectorAll(".foot > p"),function(p){para(txt(p),{size:6.6,color:K.muted,after:0.8});});
@@ -691,7 +700,7 @@ function buildPdf(){
   var np=doc.getNumberOfPages();
   for(var p=1;p<=np;p++){doc.setPage(p);doc.setDrawColor(190,199,207);doc.setLineWidth(0.2);doc.setLineDashPattern([0.8,1.2],0);
     doc.line(PW/2,p===1?firstTop:M,PW/2,PH-M-4);doc.setLineDashPattern([],0);
-    F(6.4,"normal",K.muted);doc.text("Il Bugiardino del Mutuo. Strumento informativo, esemplificativo e satirico: non è consulenza.",M,PH-8);
+    F(6.4,"normal",K.muted);doc.text("Il Bugiardino del Mutuo, informazioni aggiornate a "+AGG.label+". Non è consulenza e non sostituisce un professionista.",M,PH-8);
     doc.text("Pagina "+p+" di "+np,PW-M,PH-8,{align:"right"});}
   return doc;
 }
