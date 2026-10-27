@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Bugiardino del Mutuo</title>
+<meta name="description" content="Il foglio illustrativo del tuo mutuo: costo reale, effetti indesiderati, sovradosaggio e interruzione anticipata del trattamento. Gratis, senza registrazione.">
+<meta property="og:title" content="Il Bugiardino del Mutuo">
+<meta property="og:description" content="Leggere attentamente prima di firmare. Il foglietto che la banca non ti allega.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Archivo+Narrow:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --desk:#DCE3E8; --paper:#FFFFFF; --ink:#1B2026; --muted:#56616C;
+  --blue:#1D4F91; --red:#B3122E; --rule:#C9D1D8; --soft:#EEF2F5; --ok:#2C6E49;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --desk:#0F1418; --paper:#1A2027; --ink:#E7ECF0; --muted:#9AA7B2;
+    --blue:#8DB4F0; --red:#FF7B8A; --rule:#33404B; --soft:#222A33; --ok:#7FD1A1;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --desk:#0F1418; --paper:#1A2027; --ink:#E7ECF0; --muted:#9AA7B2;
+  --blue:#8DB4F0; --red:#FF7B8A; --rule:#33404B; --soft:#222A33; --ok:#7FD1A1;
+  color-scheme: dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--ink);
+  font-family:"Archivo Narrow","Arial Narrow","Roboto Condensed",Arial,sans-serif;font-size:16px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+.grid{display:grid;gap:24px;grid-template-columns:1fr;margin-bottom:24px}
+@media (min-width:980px){.grid{grid-template-columns:400px 1fr;align-items:start}}
+h1,h2,h3{font-family:Archivo,"Arial Narrow",Arial,sans-serif;margin:0}
+.num{font-variant-numeric:tabular-nums}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* ---- Scatola (form) ---- */
+.box{background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:20px}
+@media (min-width:980px){.box{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));max-height:calc(100vh - 32px);overflow:auto}}
+.box h2{font-size:1.25rem;color:var(--blue)}
+.box .lead{color:var(--muted);margin:4px 0 16px}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule);border-radius:4px;overflow:hidden;margin-bottom:16px}
+.levels button{border:0;background:transparent;padding:9px 4px;cursor:pointer;font-weight:600}
+.levels button[aria-pressed="true"]{background:var(--blue);color:var(--paper)}
+fieldset{border:0;border-top:1px solid var(--rule);margin:0;padding:14px 0 6px}
+legend{font-family:Archivo,Arial,sans-serif;font-weight:700;padding:0 6px 0 0;color:var(--ink)}
+.f{display:grid;grid-template-columns:1fr 132px;gap:4px 10px;align-items:center;margin:10px 0}
+.f label{font-weight:500}
+.f input,.f select{width:100%;padding:7px 8px;border:1px solid var(--rule);border-radius:3px;background:var(--soft);text-align:right}
+.f select{text-align:left}
+.f small{grid-column:1/-1;color:var(--muted);font-size:.85rem;line-height:1.3}
+.pies{display:none;grid-column:1/-1;font-size:.82rem;color:var(--blue)}
+body.lv-pies .pies{display:block}
+body.lv-rapida .xp{display:none}
+.check{display:flex;gap:8px;align-items:center;margin:10px 0}
+.check input{width:18px;height:18px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{border:1px solid var(--blue);background:transparent;color:var(--blue);padding:9px 14px;border-radius:3px;cursor:pointer;font-weight:600}
+.btn.main{background:var(--blue);color:var(--paper)}
+
+/* ---- Foglietto ---- */
+.leaflet{background:var(--paper);border:1px solid var(--rule);padding:28px 22px 36px;position:relative;
+  background-image:linear-gradient(90deg,transparent calc(50% - 1px),rgba(120,130,140,.12) 50%,transparent calc(50% + 1px)),
+  repeating-linear-gradient(180deg,transparent 0 359px,rgba(120,130,140,.14) 359px 360px)}
+@media (min-width:700px){.leaflet{padding:36px 44px 44px}}
+.lh{border-bottom:3px double var(--ink);padding-bottom:14px;margin-bottom:16px}
+.lh .kind{font-family:Archivo,Arial,sans-serif;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.lh h1{font-size:clamp(1.9rem,4.5vw,3rem);line-height:1;letter-spacing:-.01em;margin:8px 0 6px;font-weight:800}
+.lh h1 sup{font-size:.4em;vertical-align:top}
+.lh .prod{font-size:1.05rem;color:var(--muted)}
+.warnbox{border:2px solid var(--ink);padding:12px 14px;margin:16px 0;font-size:.95rem}
+.warnbox p{margin:.2em 0}
+.brief{border-left:6px solid var(--red);background:var(--soft);padding:14px 16px;margin:18px 0 22px}
+.brief h2{font-size:1.1rem;margin-bottom:6px}
+.brief p{margin:.35em 0;font-size:1.05rem;max-width:72ch}
+.brief b{font-family:Archivo,Arial,sans-serif}
+details.sec{border-top:1px solid var(--rule)}
+details.sec>summary{list-style:none;cursor:pointer;padding:13px 0;display:flex;gap:12px;align-items:baseline}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary h2{font-size:1.15rem;color:var(--blue);flex:1}
+details.sec>summary .n{font-family:Archivo,Arial,sans-serif;font-weight:800;color:var(--blue);min-width:1.6em}
+details.sec>summary::after{content:"+";font-family:Archivo,Arial,sans-serif;font-weight:700;color:var(--blue)}
+details.sec[open]>summary::after{content:"–"}
+.body{padding:0 0 18px 0;max-width:78ch}
+@media (min-width:700px){.body{padding-left:2.4em}}
+.body p{margin:.5em 0}
+.kv{display:grid;grid-template-columns:1fr auto;gap:2px 16px;margin:8px 0}
+.kv div:nth-child(odd){color:var(--muted)}
+.kv div:nth-child(even){text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.kv .tot{border-top:1px solid var(--ink);padding-top:4px;color:var(--ink)!important;font-weight:700}
+.calc{font-size:.85rem;color:var(--muted);margin:4px 0 10px}
+.calc summary{cursor:pointer;color:var(--blue);font-weight:600}
+.calc pre{white-space:pre-wrap;font-family:inherit;margin:6px 0 0;padding:8px 10px;background:var(--soft);border-radius:3px}
+.fx{list-style:none;padding:0;margin:0}
+.fx li{padding:10px 0;border-bottom:1px dotted var(--rule);display:grid;grid-template-columns:1fr auto;gap:2px 16px}
+.fx li b{font-family:Archivo,Arial,sans-serif}
+.fx li .eur{font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;text-align:right}
+.fx li p{grid-column:1/-1;margin:2px 0 0;color:var(--muted)}
+.freq{font-size:.8rem;color:var(--muted);font-style:italic}
+.bars{display:grid;gap:3px;margin:10px 0}
+.bar{display:grid;grid-template-columns:3.2em 1fr;gap:8px;align-items:center;font-size:.8rem;color:var(--muted)}
+.bar .t{display:flex;height:12px;border-radius:2px;overflow:hidden;background:var(--soft)}
+.bar .i{background:var(--red)}
+.bar .c{background:var(--blue)}
+.legend{display:flex;gap:16px;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px}
+table.st{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.95rem}
+table.st th,table.st td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:right}
+table.st th:first-child,table.st td:first-child{text-align:left}
+.scroll{overflow-x:auto}
+.bad{color:var(--red);font-weight:700}
+.good{color:var(--ok);font-weight:700}
+.contra li{margin:6px 0}
+.verdict{margin-top:22px;border:2px solid var(--red);padding:16px 18px}
+.verdict h2{font-size:1rem;letter-spacing:.04em;text-transform:uppercase;color:var(--red)}
+.verdict p.v{font-family:Archivo,Arial,sans-serif;font-size:1.35rem;line-height:1.2;font-weight:700;margin:8px 0}
+.foot{grid-column:1/-1;font-size:.9rem;color:var(--muted);max-width:90ch}
+.legalnote{font-size:.9rem;margin:-6px 0 14px;padding:8px 12px;background:var(--soft);border-radius:3px}
+.legalnote a,.legal a{color:var(--blue)}
+.legal{border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:14px 18px;margin:0 0 14px}
+.legal h2{font-size:1rem;margin-bottom:6px}
+.legal ul{margin:6px 0 0;padding-left:1.2em}
+.legal li{margin:5px 0}
+.foot p{margin:.5em 0}
+.foot a{color:var(--blue)}
+.cta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.cta a{border:1px solid var(--blue);padding:8px 12px;border-radius:3px;text-decoration:none;font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:4px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;color:#000}
+  .box,.foot .cta,.btnrow,.toast{display:none!important}
+  .wrap{display:block;padding:0}
+  .leaflet{border:0;background:none;padding:0}
+  .calc summary{display:none}
+}
+</style>
+</head>
+<body class="lv-rapida">
+<div class="wrap">
+<div class="grid">
+
+<!-- ================= LA SCATOLA: DATI ================= -->
+<form class="box" id="form" onsubmit="return false" aria-label="Dati del mutuo">
+  <h2>Composizione</h2>
+  <p class="lead">Copia i numeri dall’offerta della banca. Il foglietto a fianco si aggiorna mentre scrivi.</p>
+  <div class="levels" role="group" aria-label="Livello di dettaglio">
+    <button type="button" data-lv="rapida" aria-pressed="true">Rapida</button>
+    <button type="button" data-lv="esperta" aria-pressed="false">Esperta</button>
+    <button type="button" data-lv="pies" aria-pressed="false">Guidata PIES</button>
+  </div>
+  <p class="pies" style="margin:0 0 8px">Le indicazioni in blu seguono il modello standard europeo del PIES (Prospetto Informativo Europeo Standardizzato), che la banca deve consegnarti prima della firma. Da verificare sul tuo PIES: le banche possono variare la forma, non i contenuti.</p>
+
+  <fieldset><legend>Il mutuo</legend>
+    <div class="f"><label for="finalita">Finalità</label><select id="finalita" data-k="finalita">
+      <option value="acq1">Acquisto prima casa</option><option value="acq2">Acquisto seconda casa o investimento</option>
+      <option value="ris1">Ristrutturazione della prima casa</option><option value="ris2">Ristrutturazione di altri immobili</option>
+      <option value="cos1">Costruzione della prima casa</option><option value="liq">Liquidità</option>
+      <option value="sur">Surroga (porto il mutuo in un’altra banca)</option></select>
+      <small id="finNote"></small><span class="pies">Indicata nel PIES e nel contratto come scopo del credito</span></div>
+    <label class="check" id="rowSurPrima"><input type="checkbox" id="surPrima" data-k="surPrima"> Il mutuo che porto era per l’acquisto della prima casa</label>
+    <div class="f"><label for="prezzo" id="lblPrezzo">Prezzo della casa (€)</label><input id="prezzo" inputmode="decimal" data-k="prezzo"><span class="pies">Sez. 3 “Caratteristiche principali del credito”, valore dell’immobile</span></div>
+    <div class="f"><label for="capitale">Importo del mutuo (€)</label><input id="capitale" inputmode="decimal" data-k="capitale"><span class="pies">Sez. 3, importo del credito</span></div>
+    <div class="f"><label for="anni">Durata (anni)</label><input id="anni" inputmode="numeric" data-k="anni"><span class="pies">Sez. 3, durata del credito</span></div>
+    <div class="f"><label for="tipo">Tipo di tasso</label><select id="tipo" data-k="tipo"><option value="fisso">Fisso</option><option value="variabile">Variabile</option></select><span class="pies">Sez. 4 “Tasso di interesse e altri costi”</span></div>
+    <div class="f" id="rowTan"><label for="tan">Tasso fisso, TAN (%)</label><input id="tan" inputmode="decimal" data-k="tan"><span class="pies">Sez. 4, tasso debitore</span></div>
+    <div class="f" id="rowEur"><label for="euribor">Euribor di partenza (%)</label><input id="euribor" inputmode="decimal" data-k="euribor"><small>Valore predefinito: Euribor 3 mesi intorno al 2,5% (estate 2026). Aggiornalo con quello del giorno.</small><span class="pies">Sez. 4, indice di riferimento</span></div>
+    <div class="f" id="rowSpr"><label for="spread">Spread (%)</label><input id="spread" inputmode="decimal" data-k="spread"><span class="pies">Sez. 4, maggiorazione sull’indice</span></div>
+    <label class="check"><input type="checkbox" id="green" data-k="green"> Mutuo green (casa in classe energetica alta o lavori di efficientamento)</label>
+    <div class="f" id="rowSconto"><label for="sconto">Sconto green già incluso nel tasso (punti %)</label><input id="sconto" inputmode="decimal" data-k="sconto"><small>Di quanto il tasso green è più basso di quello normale. Lo trovi confrontando le due offerte della stessa banca.</small></div>
+    <div class="f"><label for="reddito">Reddito netto mensile della famiglia (€)</label><input id="reddito" inputmode="decimal" data-k="reddito"><small>Serve solo per capire se la rata è sostenibile. Non esce dal tuo browser.</small></div>
+  </fieldset>
+
+  <fieldset id="fsConsap"><legend>Fondo di garanzia prima casa (Consap)</legend>
+    <label class="check"><input type="checkbox" id="consap" data-k="consap"> Chiedo la garanzia statale del Fondo prima casa</label>
+    <div class="f cons"><label for="cat">Categoria</label><select id="cat" data-k="cat">
+      <option value="none">Nessuna categoria prioritaria</option><option value="u36">Under 36</option><option value="cop">Giovane coppia</option>
+      <option value="mono">Genitore solo con figli minori</option><option value="iacp">Inquilino di casa popolare</option>
+      <option value="dis">Persona con disabilità permanente</option><option value="f3">Famiglia con 3 figli</option>
+      <option value="f4">Famiglia con 4 figli</option><option value="f5">Famiglia con 5 o più figli</option></select></div>
+    <div class="f cons"><label for="isee">ISEE (€)</label><input id="isee" inputmode="decimal" data-k="isee"></div>
+    <small class="cons" style="display:block;color:var(--muted);font-size:.85rem">Garanzia gratuita, prorogata fino al 31 dicembre 2027. Requisiti esatti per categoria: verificali sul sito Consap e con la banca, che deve aderire al Fondo.</small>
+  </fieldset>
+
+  <fieldset class="xp"><legend>I costi che non stanno nel tasso</legend>
+    <div class="f"><label for="taegB">TAEG dichiarato dalla banca (%)</label><input id="taegB" inputmode="decimal" data-k="taegB"><small>Lascia vuoto se non lo conosci.</small><span class="pies">Sez. 4, TAEG</span></div>
+    <div class="f"><label for="istr">Spese di istruttoria (€)</label><input id="istr" inputmode="decimal" data-k="istr"><span class="pies">Sez. 4, costi una tantum</span></div>
+    <div class="f"><label for="perizia">Perizia (€)</label><input id="perizia" inputmode="decimal" data-k="perizia"><span class="pies">Sez. 4, costi una tantum</span></div>
+    <div class="f"><label for="notaio">Notaio, atto di mutuo (€)</label><input id="notaio" inputmode="decimal" data-k="notaio"><small>Solo l’atto di mutuo, non quello di compravendita.</small><span class="pies">Sez. 4, costi una tantum non inclusi nel TAEG</span></div>
+    <div class="f"><label for="impAl">Imposta sostitutiva (%)</label><input id="impAl" inputmode="decimal" data-k="impAl" placeholder="auto"><small>Lascia vuoto: la calcolo dalla finalità. Correggila se il notaio ti indica un’aliquota diversa.</small><span class="pies">Sez. 4, costi una tantum</span></div>
+    <div class="f"><label for="incasso">Spese incasso rata (€ a rata)</label><input id="incasso" inputmode="decimal" data-k="incasso"><span class="pies">Sez. 4, costi periodici</span></div>
+    <div class="f"><label for="comun">Comunicazioni e gestione (€ l’anno)</label><input id="comun" inputmode="decimal" data-k="comun"><span class="pies">Sez. 4, costi periodici</span></div>
+    <div class="f"><label for="incendio">Polizza incendio e scoppio (€ l’anno)</label><input id="incendio" inputmode="decimal" data-k="incendio"><small>Se è a premio unico, dividi il premio per gli anni del mutuo.</small><span class="pies">Sez. 8 “Obblighi aggiuntivi”</span></div>
+    <div class="f"><label for="vita">Polizza vita o protezione rata (€ l’anno)</label><input id="vita" inputmode="decimal" data-k="vita"><span class="pies">Sez. 8 “Obblighi aggiuntivi” se richiesta, altrimenti offerta a parte</span></div>
+    <label class="check"><input type="checkbox" id="vitaReq" data-k="vitaReq"> La banca la presenta come condizione per il mutuo</label>
+    <div class="f"><label for="conto">Conto corrente richiesto (€ l’anno)</label><input id="conto" inputmode="decimal" data-k="conto"><small>Canone, carte e bolli del conto che ti chiedono di aprire o tenere.</small><span class="pies">Sez. 8 “Obblighi aggiuntivi”</span></div>
+  </fieldset>
+
+  <fieldset class="xp"><legend>Fisco e famiglia</legend>
+    <div class="f"><label for="intest">Intestatari del mutuo</label><select id="intest" data-k="intest"><option value="1">1</option><option value="2">2</option></select></div>
+    <div class="f"><label for="redAnn">Reddito annuo lordo più alto tra gli intestatari (€)</label><input id="redAnn" inputmode="decimal" data-k="redAnn"><small>Serve a segnalare limiti alla detrazione oltre i 75.000 €.</small></div>
+    <div class="f"><label for="fondo">Risparmi che restano dopo il rogito (€)</label><input id="fondo" inputmode="decimal" data-k="fondo"></div>
+    <div class="f"><label for="soglia">Soglia rata/reddito sostenibile (%)</label><input id="soglia" inputmode="decimal" data-k="soglia"></div>
+  </fieldset>
+
+  <fieldset><legend>Interruzione anticipata (facoltativa)</legend>
+    <div class="f"><label for="exTipo">Versamenti extra</label><select id="exTipo" data-k="exTipo">
+      <option value="none">Nessuno</option><option value="annua">Una rata in più ogni anno</option>
+      <option value="mensile">Un importo in più ogni mese</option><option value="unatantum">Una somma una tantum</option></select></div>
+    <div class="f exAmt"><label for="exImp">Importo (€)</label><input id="exImp" inputmode="decimal" data-k="exImp"></div>
+    <div class="f exYr"><label for="exAnno">Nell’anno n°</label><input id="exAnno" inputmode="numeric" data-k="exAnno"></div>
+    <div class="f exAny"><label for="exModo">Poi la banca…</label><select id="exModo" data-k="exModo"><option value="durata">accorcia la durata</option><option value="rata">abbassa la rata</option></select></div>
+    <div class="f exAny"><label for="alt">Rendimento netto alternativo (%)</label><input id="alt" inputmode="decimal" data-k="alt"><small>Quanto renderebbero gli stessi soldi se li tenessi o investissi. Serve a non estinguere per riflesso.</small></div>
+  </fieldset>
+
+  <div class="btnrow">
+    <button type="button" class="btn main" id="bPrint">Scarica il bugiardino in PDF</button>
+    <button type="button" class="btn" id="bCopy">Copia il verdetto</button>
+    <button type="button" class="btn" id="bReset">Rimetti i valori di esempio</button>
+  </div>
+</form>
+
+<!-- ================= IL FOGLIETTO ================= -->
+<article class="leaflet" aria-live="polite">
+  <header class="lh">
+    <div class="kind">Foglio illustrativo: informazioni per il mutuatario</div>
+    <h1>Mutuo<sup>®</sup></h1>
+    <div class="prod" id="prod"></div>
+  </header>
+  <div class="warnbox">
+    <p><b>Legga attentamente tutto questo foglio prima di firmare.</b> Contiene informazioni importanti che di solito nessuno le legge ad alta voce.</p>
+    <p>Conservi questo foglio. Potrebbe aver bisogno di leggerlo di nuovo quando arriva la prima rata.</p>
+    <p>Se uno qualsiasi degli effetti indesiderati peggiora, si rivolga a un consulente indipendente o almeno a un secondo PIES.</p>
+  </div>
+  <p class="legalnote"><b>Strumento informativo, esemplificativo e satirico.</b> Non è consulenza e non sostituisce i documenti e i conteggi della banca: le decisioni restano tue. <a href="#avvertenze">Leggi le avvertenze legali</a>.</p>
+
+  <section class="brief" aria-labelledby="hBrief"><h2 id="hBrief">In breve</h2><div id="brief"></div></section>
+
+  <details class="sec"><summary><span class="n">1</span><h2>Composizione</h2></summary><div class="body" id="s1"></div></details>
+  <details class="sec"><summary><span class="n">2</span><h2>Indicazioni: fisso o variabile</h2></summary><div class="body" id="s2"></div></details>
+  <details class="sec"><summary><span class="n">3</span><h2>Posologia</h2></summary><div class="body" id="s3"></div></details>
+  <details class="sec"><summary><span class="n">4</span><h2>Avvertenze speciali</h2></summary><div class="body" id="s4"></div></details>
+  <details class="sec" open><summary><span class="n">5</span><h2>Effetti indesiderati</h2></summary><div class="body" id="s5"></div></details>
+  <details class="sec"><summary><span class="n">6</span><h2>Interazioni con fisco e reddito</h2></summary><div class="body" id="s6"></div></details>
+  <details class="sec"><summary><span class="n">7</span><h2>Sovradosaggio</h2></summary><div class="body" id="s7"></div></details>
+  <details class="sec"><summary><span class="n">8</span><h2>Interruzione anticipata del trattamento</h2></summary><div class="body" id="s8"></div></details>
+  <details class="sec"><summary><span class="n">9</span><h2>Controindicazioni</h2></summary><div class="body" id="s9"></div></details>
+  <details class="sec"><summary><span class="n">10</span><h2>Scadenza e conservazione</h2></summary><div class="body" id="s10"></div></details>
+
+  <section class="verdict" aria-labelledby="hVer"><h2 id="hVer">Tenere fuori dalla portata dei venditori</h2><p class="v" id="verdict"></p><p class="freq" id="verdict2"></p></section>
+</article>
+
+</div>
+<footer class="foot">
+  <section class="legal" id="avvertenze" aria-labelledby="hLegal">
+    <h2 id="hLegal">Avvertenze legali (da leggere davvero)</h2>
+    <p>Il Bugiardino del Mutuo è uno strumento gratuito a scopo esclusivamente informativo, esemplificativo e satirico. Il tono ironico è voluto; i numeri sono stime.</p>
+    <ul>
+      <li>Non costituisce consulenza finanziaria, creditizia, fiscale, assicurativa o legale, né offerta, raccomandazione o sollecitazione all’acquisto di prodotti finanziari o assicurativi. Non sostituisce il PIES, i documenti di trasparenza, il contratto e i conteggi ufficiali della banca, né il parere di un professionista abilitato.</li>
+      <li>I calcoli si basano su ipotesi semplificate (ammortamento alla francese, rate mensili, tassi costanti negli scenari, valori di esempio dove non inseriti) e sui dati inseriti dall’utente, che ne è il solo responsabile. I risultati possono differire, anche in modo rilevante, da quelli reali.</li>
+      <li>Norme, aliquote e limiti sono riportati in forma sintetica, verificati al 20 ottobre 2026; possono cambiare, avere eccezioni o non applicarsi al tuo caso.</li>
+      <li>Le battute riguardano pratiche commerciali diffuse e non si riferiscono ad alcuna banca, compagnia assicurativa, intermediario o persona determinata.</li>
+      <li>Nei limiti massimi consentiti dalla legge, gli autori non rispondono di decisioni prese o non prese sulla base di questo strumento, né di danni diretti o indiretti derivanti dal suo uso o dall’impossibilità di usarlo. Prima di firmare verifica ogni dato con la banca e con un consulente di tua fiducia.</li>
+      <li>Usando lo strumento dichiari di aver letto e compreso queste avvertenze.</li>
+    </ul>
+  </section>
+  <p>Il Bugiardino non registra niente da nessuna parte: i dati restano solo in questo browser.</p>
+  <p>Testi, grafica e codice realizzati con il supporto di strumenti di intelligenza artificiale.</p>
+  <p>Il Bugiardino nasce dalla stessa officina del Tassametro da riunione e di <b>«Da grande farò il Fuffa Guru»</b> di Nicola Marini, il manuale per smontare la fuffa con automazioni e agenti AI.</p>
+  <div class="cta"><a href="https://www.amazon.it/dp/B0HL52X9VB" target="_blank" rel="noopener">Il libro su Amazon</a><a href="https://fuffalibrary.lemonsqueezy.com" target="_blank" rel="noopener">Capitolo 1 gratis</a></div>
+</footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+var KEY="bugiardino-mutuo-v1";
+/* ---------- Valori di esempio (modificabili) ---------- */
+var DEF={prezzo:250000,capitale:200000,anni:30,tipo:"fisso",tan:3.5,euribor:2.5,spread:1.0,reddito:3200,
+  taegB:"",istr:1000,perizia:300,notaio:2000,incasso:2,comun:0,incendio:150,vita:0,vitaReq:false,conto:0,
+  finalita:"acq1",consap:false,cat:"u36",isee:30000,surPrima:true,green:false,sconto:0.3,impAl:"",intest:"1",redAnn:45000,fondo:10000,soglia:33,exTipo:"none",exImp:100,exAnno:5,exModo:"durata",alt:2.5};
+var LIM={detr:0.19,ltv:0.8,stress:[1,2,3]};
+/* Fondo Consap: soglia ISEE e garanzia per le categorie prioritarie (verificate al 20/10/2026) */
+var CAT={none:{l:"nessuna categoria prioritaria",s:0,g:50},u36:{l:"under 36",s:40000,g:80},cop:{l:"giovane coppia",s:40000,g:80},
+  mono:{l:"genitore solo con figli minori",s:40000,g:80},iacp:{l:"inquilino di casa popolare",s:40000,g:80},dis:{l:"persona con disabilità permanente",s:40000,g:80},
+  f3:{l:"famiglia con 3 figli",s:40000,g:80},f4:{l:"famiglia con 4 figli",s:45000,g:85},f5:{l:"famiglia con 5 o più figli",s:50000,g:90}};
+var CONSAP_MAX=250000;
+/* Finalità: aliquota imposta sostitutiva (%), tetto interessi detraibili (€), testo */
+var FIN={
+  acq1:{l:"acquisto prima casa",imp:0.25,tetto:4000,t:"Imposta sostitutiva 0,25%. Detrazione del 19% degli interessi fino a 4.000 € l’anno."},
+  acq2:{l:"acquisto seconda casa o investimento",imp:2,tetto:0,t:"Imposta sostitutiva 2%. Nessuna detrazione degli interessi."},
+  ris1:{l:"ristrutturazione prima casa",imp:0.25,tetto:2582.28,t:"Imposta sostitutiva 0,25%. Detrazione del 19% degli interessi fino a 2.582,28 € l’anno. I bonus edilizi sui lavori sono un’altra cosa e si sommano."},
+  ris2:{l:"ristrutturazione di altri immobili",imp:2,tetto:0,t:"Imposta sostitutiva 2%. Nessuna detrazione degli interessi."},
+  cos1:{l:"costruzione prima casa",imp:0.25,tetto:2582.28,t:"Imposta sostitutiva 0,25%. Detrazione del 19% degli interessi fino a 2.582,28 € l’anno."},
+  liq:{l:"liquidità",imp:0.25,tetto:0,t:"Nessuna detrazione degli interessi. Imposta sostitutiva: le fonti non concordano tra 0,25% e 2%, chiedi al notaio e correggila in modalità esperta."},
+  sur:{l:"surroga",imp:0,tetto:4000,t:"Niente imposta sostitutiva e niente spese di istruttoria, perizia e notaio a tuo carico. La detrazione resta quella del mutuo originario, sul capitale residuo."}
+};
+
+/* ---------- Battute ---------- */
+var VERDICTS=[
+  [1.25,"Terapia sopportabile. Il mutuo costa, ma almeno adesso sai quanto."],
+  [1.5,"Effetti collaterali importanti ma dichiarati. Firmare a occhi aperti è già un lusso."],
+  [1.75,"Restituisci più di una volta e mezza quello che ti prestano. Rileggere prima dell’uso."],
+  [2.0,"Per ogni euro che ti prestano ne restituisci quasi due. La banca ringrazia per la fiducia."],
+  [Infinity,"Stai pagando il prestito due volte: una per te e una per la banca."]
+];
+
+/* ---------- Utilità ---------- */
+var $=function(id){return document.getElementById(id);};
+function num(v){if(v===""||v==null)return NaN;return parseFloat(String(v).replace(/\./g,"").replace(",","."));}
+function numDec(v){if(v===""||v==null)return NaN;var s=String(v).trim();if(s.indexOf(",")>-1)s=s.replace(/\./g,"").replace(",",".");return parseFloat(s);}
+var fE=new Intl.NumberFormat("it-IT",{style:"currency",currency:"EUR",maximumFractionDigits:0,useGrouping:"always"});
+var fE2=new Intl.NumberFormat("it-IT",{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2,useGrouping:"always"});
+var fP=new Intl.NumberFormat("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
+var fN=new Intl.NumberFormat("it-IT",{maximumFractionDigits:0,useGrouping:"always"});
+function eur(x){return fE.format(Math.round(x));}
+function eur2(x){return fE2.format(x);}
+function pct(x){return fP.format(x)+"%";}
+function durata(m){var a=Math.floor(m/12),r=m%12;return a+(a===1?" anno":" anni")+(r?" e "+r+(r===1?" mese":" mesi"):"");}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+
+/* ---------- Motore: ammortamento alla francese ---------- */
+function rataFr(C,i,n){return i===0?C/n:C*i/(1-Math.pow(1+i,-n));}
+function sim(C,annual,n,ex){
+  var i=annual/100/12,b=C,R=rataFr(C,i,n),m=0,totI=0,exTot=0,pay=[],intY=[],capY=[];
+  while(b>0.005&&m<n){
+    m++;var it=b*i,cp=R-it;if(cp>b)cp=b;b-=cp;totI+=it;
+    var y=Math.floor((m-1)/12);intY[y]=(intY[y]||0)+it;capY[y]=(capY[y]||0)+cp;
+    var paid=it+cp,E=0;
+    if(ex&&ex.tipo!=="none"&&b>0.005){
+      if(ex.tipo==="annua"&&m%12===0)E=R;
+      else if(ex.tipo==="mensile")E=ex.imp;
+      else if(ex.tipo==="unatantum"&&m===ex.anno*12)E=ex.imp;
+      E=Math.min(Math.max(E,0),b);b-=E;exTot+=E;capY[y]+=E;
+      if(E>0&&ex.modo==="rata"&&b>0.005)R=rataFr(b,i,n-m);
+    }
+    pay.push({rata:paid,extra:E});
+  }
+  return {rata0:rataFr(C,i,n),rataFin:R,mesi:m,totI:totI,exTot:exTot,pay:pay,intY:intY,capY:capY};
+}
+/* TAEG come tasso interno: flussi mensili */
+function irrAnn(net,flows){
+  function npv(r){var s=-net;for(var k=0;k<flows.length;k++)s+=flows[k]/Math.pow(1+r,k+1);return s;}
+  var lo=0,hi=0.05;if(npv(lo)>0&&npv(hi)>0)return NaN;
+  for(var t=0;t<80;t++){var mid=(lo+hi)/2;if(npv(mid)>0)lo=mid;else hi=mid;}
+  return (Math.pow(1+(lo+hi)/2,12)-1)*100;
+}
+function detrazione(intY,prop,tetto){
+  if(!(tetto>0))return {tot:0,y:[]};var y=[],t=0;
+  for(var k=0;k<intY.length;k++){var d=LIM.detr*Math.min((intY[k]||0)*prop,tetto);y.push(d);t+=d;}
+  return {tot:t,y:y};
+}
+
+/* ---------- Stato ---------- */
+var S=load();
+function load(){try{var r=localStorage.getItem(KEY);if(r){var d=JSON.parse(r);var o={};for(var k in DEF)o[k]=(k in d)?d[k]:DEF[k];o.lv=d.lv||"rapida";return o;}}catch(e){}var o2=JSON.parse(JSON.stringify(DEF));o2.lv="rapida";return o2;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function fill(){
+  document.querySelectorAll("[data-k]").forEach(function(el){
+    var k=el.dataset.k;if(el.type==="checkbox")el.checked=!!S[k];
+    else el.value=(typeof S[k]==="number")?String(S[k]).replace(".",","):S[k];
+  });
+  setLv(S.lv);
+}
+function setLv(lv){
+  S.lv=lv;document.body.classList.remove("lv-rapida","lv-esperta","lv-pies");document.body.classList.add("lv-"+lv);
+  document.querySelectorAll(".levels button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.lv===lv?"true":"false");});
+}
+function readField(el){
+  var k=el.dataset.k;
+  if(el.type==="checkbox")S[k]=el.checked;
+  else if(el.tagName==="SELECT")S[k]=el.value;
+  else{var v=numDec(el.value);S[k]=el.value.trim()===""?"":(isNaN(v)?S[k]:v);}
+}
+
+/* ---------- Calcolo completo ---------- */
+function V(k){var v=S[k];return (v===""||v==null||isNaN(v))?0:+v;}
+function compute(){
+  var C=V("capitale"),N=Math.max(1,Math.round(V("anni"))),n=N*12,prezzo=V("prezzo");
+  var variab=S.tipo==="variabile",tasso=variab?V("euribor")+V("spread"):V("tan");
+  var lv=S.lv,xp=lv!=="rapida";
+  var fk=FIN[S.finalita]?S.finalita:"acq1",fin=FIN[fk],sur=fk==="sur";
+  var c={istr:xp?V("istr"):(sur?0:DEF.istr),perizia:xp?V("perizia"):(sur?0:DEF.perizia),notaio:xp?V("notaio"):(sur?0:DEF.notaio),incasso:xp?V("incasso"):DEF.incasso,
+    comun:xp?V("comun"):DEF.comun,incendio:xp?V("incendio"):DEF.incendio,vita:xp?V("vita"):0,conto:xp?V("conto"):0,vitaReq:xp&&S.vitaReq};
+  var tetto=sur?(S.surPrima?4000:0):fin.tetto;
+  var impAl=(xp&&S.impAl!==""&&!isNaN(S.impAl))?+S.impAl:fin.imp;
+  var base=sim(C,tasso,n,null);
+  var imposta=C*impAl/100;
+  var r={C:C,N:N,n:n,prezzo:prezzo,tasso:tasso,variab:variab,c:c,fk:fk,fin:fin,sur:sur,tetto:tetto,detrOn:tetto>0,impAl:impAl,base:base,imposta:imposta,xp:xp};
+  r.green=S.green&&V("sconto")>0?{sc:V("sconto"),val:sim(C,tasso+V("sconto"),n,null).totI-base.totI}:null;
+  r.incassoTot=c.incasso*base.mesi; r.comunTot=c.comun*N; r.incendioTot=c.incendio*N; r.vitaTot=c.vita*N; r.contoTot=c.conto*N;
+  r.iniziali=c.istr+c.perizia+c.notaio+imposta;
+  r.accessori=r.iniziali+r.incassoTot+r.comunTot+r.incendioTot+r.vitaTot+r.contoTot;
+  r.costoTot=base.totI+r.accessori; r.restituito=C+r.costoTot;
+  /* TAEG ricalcolato: esclude notaio; include polizza vita solo se richiesta; conto incluso se indicato */
+  var flows=[],mens=c.incasso+c.comun/12+c.incendio/12+c.conto/12+(c.vitaReq?c.vita/12:0);
+  for(var k=0;k<base.pay.length;k++)flows.push(base.pay[k].rata+mens);
+  r.taeg=irrAnn(C-c.istr-c.perizia-imposta,flows);
+  r.taegB=num(S.taegB);
+  /* quote nei primi anni */
+  function share(y){var I=0,K=0;for(var j=0;j<Math.min(y,base.intY.length);j++){I+=base.intY[j];K+=base.capY[j];}return {I:I,K:K,p:I/(I+K)*100};}
+  r.s5=share(5);r.s10=share(10);
+  /* fisco */
+  var prop=(fk==="acq1"&&prezzo>0)?Math.min(1,prezzo/C):1;r.prop=prop;
+  r.detr=detrazione(base.intY,prop,tetto);
+  r.redAnn=xp?V("redAnn"):0;
+  r.rr=V("reddito")>0?base.rata0/V("reddito")*100:NaN;r.soglia=V("soglia")||33;
+  r.ltv=prezzo>0?C/prezzo*100:NaN;
+  r.consap=null;
+  if(S.consap&&(fk==="acq1"||sur)){
+    var ct=CAT[S.cat]||CAT.none,isee=V("isee"),why=[];
+    var pri=S.cat!=="none",iseeOk=pri&&isee>0&&isee<=ct.s,ltvOk=r.ltv>80,g=(pri&&iseeOk&&ltvOk)?ct.g:50;
+    if(pri&&!iseeOk)why.push(isee>0?"ISEE sopra "+eur(ct.s):"ISEE non indicato");
+    if(pri&&!ltvOk)why.push("il mutuo non supera l’80% del prezzo");
+    r.consap={ok:C<=CONSAP_MAX,cat:ct,pri:pri,g:g,val:C*g/100,why:why};
+  }
+  /* stress */
+  r.stress=LIM.stress.map(function(d){var R=rataFr(C,(tasso+d)/1200,n);return {d:d,t:tasso+d,R:R,diff:R-base.rata0,rr:V("reddito")>0?R/V("reddito")*100:NaN,tot:R*n-C};});
+  /* estinzione */
+  r.ex=null;
+  if(S.exTipo!=="none"){
+    var ex={tipo:S.exTipo,imp:V("exImp"),anno:Math.max(1,Math.round(V("exAnno"))),modo:S.exModo};
+    var both={durata:sim(C,tasso,n,{tipo:ex.tipo,imp:ex.imp,anno:ex.anno,modo:"durata"}),rata:sim(C,tasso,n,{tipo:ex.tipo,imp:ex.imp,anno:ex.anno,modo:"rata"})};
+    var sel=both[ex.modo];
+    var ra=Math.pow(1+V("alt")/100,1/12)-1;
+    var dS=detrazione(sel.intY,prop,tetto),W=0;
+    for(var m=1;m<=n;m++){
+      var bp=base.pay[m-1]?base.pay[m-1].rata+c.incasso:0;
+      var sp=sel.pay[m-1]?sel.pay[m-1].rata+sel.pay[m-1].extra+c.incasso:0;
+      W=W*(1+ra)+(bp-sp);
+      if(m%12===0){var y=m/12-1;W+=(dS.y[y]||0)-(r.detr.y[y]||0);}
+    }
+    r.ex={cfg:ex,durata:both.durata,rata:both.rata,sel:sel,risp:{durata:base.totI-both.durata.totI,rata:base.totI-both.rata.totI},
+      detrPersa:r.detr.tot-dS.tot,W:W,alt:V("alt")};
+  }
+  return r;
+}
+
+/* ---------- Rendering ---------- */
+function calcBox(txt){return '<details class="calc"><summary>Mostra il calcolo</summary><pre>'+esc(txt)+'</pre></details>';}
+function render(){
+  var r=compute(),b=r.base,c=r.c,h;
+  $("prod").textContent="Capitale "+eur(r.C)+" a rilascio prolungato per "+r.fin.l+(r.green?" (green)":"")+", "+r.N+" anni, tasso "+(r.variab?"variabile ":"fisso ")+pct(r.tasso);
+  $("finNote").textContent=r.fin.t;
+  $("rowSurPrima").style.display=r.sur?"":"none";$("rowSconto").style.display=S.green?"":"none";
+  $("fsConsap").style.display=(r.fk==="acq1"||r.sur)?"":"none";
+  document.querySelectorAll(".cons").forEach(function(e){e.style.display=S.consap?"":"none";});
+  $("lblPrezzo").textContent=(r.fk==="acq1"||r.fk==="acq2")?"Prezzo della casa (€)":"Valore della casa (€)";
+  $("rowTan").style.display=r.variab?"none":"";$("rowEur").style.display=r.variab?"":"none";$("rowSpr").style.display=r.variab?"":"none";
+  document.querySelectorAll(".exAmt").forEach(function(e){e.style.display=(S.exTipo==="mensile"||S.exTipo==="unatantum")?"":"none";});
+  document.querySelectorAll(".exYr").forEach(function(e){e.style.display=S.exTipo==="unatantum"?"":"none";});
+  document.querySelectorAll(".exAny").forEach(function(e){e.style.display=S.exTipo==="none"?"none":"";});
+
+  /* effetti indesiderati */
+  var fx=[];
+  fx.push({e:b.totI,t:"Gli interessi",p:"Il prezzo del tempo. È la voce che tutti conoscono e che nessuno somma fino in fondo."});
+  fx.push({e:r.iniziali,t:"Le spese per partire",p:"Istruttoria "+eur(c.istr)+", perizia "+eur(c.perizia)+", notaio "+eur(c.notaio)+", imposta sostitutiva "+eur(r.imposta)+" ("+pct(r.impAl)+" per "+r.fin.l+"). Si pagano prima ancora della prima rata."});
+  if(r.sur&&r.xp&&(c.istr+c.perizia+c.notaio)>0)fx.push({e:c.istr+c.perizia+c.notaio,t:"Spese in surroga",p:"In surroga istruttoria, perizia e notaio non sono a tuo carico. Se te li chiedono, chiedi per iscritto a che titolo."});
+  if(r.incassoTot>0)fx.push({e:r.incassoTot,t:"L’incasso rata",p:eur2(c.incasso)+" a rata sembrano niente. Per "+fN.format(b.mesi)+" rate non lo sono. Chiedi se si può azzerare con l’addebito diretto."});
+  if(r.comunTot>0)fx.push({e:r.comunTot,t:"Comunicazioni e gestione",p:"Pagare per ricevere la lettera che ti dice quanto devi pagare."});
+  if(r.incendioTot>0)fx.push({e:r.incendioTot,t:"La polizza incendio e scoppio",p:"È l’unica che la banca può pretendere. Non deve per forza essere la sua: puoi portarne una esterna con le stesse garanzie, e se ti chiedono una polizza la banca deve presentarti due preventivi alternativi."});
+  if(r.vitaTot>0)fx.push({e:r.vitaTot,t:"La polizza vita o protezione rata",p:(c.vitaReq?"Te l’hanno presentata come condizione. ":"")+"Oltre a incendio e scoppio nessuna polizza può essere imposta. Può avere senso, ma confronta il prezzo sul mercato e leggi le esclusioni prima del premio. Pesa il "+fN.format(r.vitaTot/b.totI*100)+"% degli interessi."});
+  if(r.contoTot>0)fx.push({e:r.contoTot,t:"Il conto corrente “necessario”",p:"Il conto che ti chiedono di aprire o tenere, moltiplicato per "+r.N+" anni."});
+  fx.sort(function(a,b2){return b2.e-a.e;});
+  var hidden=fx.filter(function(x){return x.t!=="Gli interessi";})[0];
+  var notes=[];
+  notes.push({t:"I primi anni sono quasi solo interessi",p:"Nei primi 5 anni il "+fN.format(r.s5.p)+"% di quello che versi sono interessi; nei primi 10 il "+fN.format(r.s10.p)+"%. Dopo 10 anni di rate devi ancora "+eur(r.C-r.s10.K)+"."});
+  notes.push({t:"L’estinzione parziale “di default”",p:"Se versi una somma in anticipo e non chiedi nulla, di norma la banca abbassa la rata e lascia la durata. È l’opzione che fa risparmiare meno: chiedi per iscritto di accorciare la durata."});
+  if(!isNaN(r.taegB)&&!isNaN(r.taeg)&&Math.abs(r.taegB-r.taeg)>0.1)notes.push({t:"Il TAEG non torna",p:"La banca dichiara "+pct(r.taegB)+", con i costi inseriti qui risulta "+pct(r.taeg)+". "+(r.taegB>r.taeg?"Mancano costi che non hai inserito: chiedi l’elenco completo.":"Qui hai inserito costi che la banca non considera nel TAEG (per esempio polizze o conto): chiedi quali sono inclusi.")});
+  if(r.variab)notes.push({t:"Il variabile può salire",p:"Con l’Euribor più alto di 2 punti la rata passa a "+eur(r.stress[1].R)+", cioè "+eur(r.stress[1].diff)+" in più al mese."});
+  if(r.green)notes.push({t:"Il bollino verde",p:"Lo sconto di "+pct(r.green.sc)+" vale circa "+eur(r.green.val)+" di interessi in meno su tutta la durata. Prima di festeggiare: verifica i requisiti (classe energetica, APE, lavori documentati), quanto costano le certificazioni e cosa dice il contratto se i requisiti vengono meno."});
+  if(r.consap){var cs=r.consap;
+    if(!cs.ok)notes.push({t:"Garanzia Consap: fuori misura",p:"Il Fondo garantisce mutui fino a "+eur(CONSAP_MAX)+". Con "+eur(r.C)+" la garanzia statale non c’è."});
+    else{notes.push({t:"La garanzia Consap protegge la banca, non te",p:"Il Fondo garantirebbe "+(cs.g===80||cs.g===85?"l’":"il ")+cs.g+"% del capitale ("+eur(cs.val)+")"+(cs.why.length?", non l’80%: "+cs.why.join(" e "):"")+". È gratuita e ti apre la porta a un mutuo più alto, ma se smetti di pagare il debito resta tuo: la garanzia rimborsa la banca."});
+      if(cs.pri)notes.push({t:"Il tetto al tasso per le categorie prioritarie",p:"Con la garanzia del Fondo il tasso effettivo (TEG) non può superare il TEGM, il tasso medio pubblicato ogni trimestre dal Ministero dell’Economia. Chiedi alla banca il TEGM del trimestre e confrontalo."});
+      notes.push({t:"Le garanzie in più",p:"Con la garanzia del Fondo le banche aderenti si impegnano a non chiederti altre garanzie oltre all’ipoteca e alle assicurazioni: niente fideiussione dei genitori, niente ipoteca su un’altra casa. Se te le chiedono, chiedi per iscritto su quale base."});}
+    if(r.ltv>=95)notes.push({t:"Mutuo al 100%: zero cuscinetto",p:"Finanzi il "+fN.format(r.ltv)+"% del prezzo. Se devi vendere nei primi anni o il valore della casa scende, puoi ritrovarti a dover più di quanto vale la casa, e intanto paghi interessi anche su quello che non hai anticipato."});
+    if(S.cat==="u36")notes.push({t:"Il “bonus under 36” che non c’è più",p:"Le esenzioni fiscali under 36 su imposte e mutuo sono scadute: oggi resta la garanzia del Fondo. Se qualcuno te le promette ancora, chiedi la norma."});
+  }
+  if(r.ltv>LIM.ltv*100)notes.push({t:"Mutuo oltre l’80% del valore",p:"Finanzi il "+fN.format(r.ltv)+"% del prezzo. Sopra l’80% le condizioni di solito peggiorano: tasso, garanzie o polizze."});
+
+  h='<ul class="fx">'+fx.map(function(x){return '<li><b>'+esc(x.t)+'</b><span class="eur">'+eur(x.e)+'</span><p>'+esc(x.p)+'</p></li>';}).join("")+'</ul>';
+  h+='<p class="freq">Frequenza: molto comune. Riguarda chiunque firmi senza aver fatto la somma.</p>';
+  h+='<ul class="fx">'+notes.map(function(x){return '<li><b>'+esc(x.t)+'</b><span></span><p>'+esc(x.p)+'</p></li>';}).join("")+'</ul>';
+  $("s5").innerHTML=h;
+
+  /* in breve */
+  var ratio=r.restituito/r.C,vi=VERDICTS.filter(function(v){return ratio<v[0];})[0][1];
+  var over=!isNaN(r.rr)&&r.rr>r.soglia;
+  $("brief").innerHTML='<p>Ti prestano <b>'+eur(r.C)+'</b>. Ne restituisci <b>'+eur(r.restituito)+'</b>: '+eur(r.costoTot)+' oltre al capitale, cioè '+fP.format(ratio)+' euro per ogni euro ricevuto.</p>'+
+    (hidden?'<p>La cifra che non trovi in vetrina: <b>'+esc(hidden.t.toLowerCase())+', '+eur(hidden.e)+'</b>'+(r.xp?'.':' (valore di esempio: inserisci il tuo in modalità esperta).')+'</p>':'')+
+    '<p>Rata <b>'+eur2(b.rata0)+'</b>'+(isNaN(r.rr)?'':', il <b class="'+(over?'bad':'good')+'">'+fN.format(r.rr)+'%</b> del reddito netto')+'.'+(over?' Sopra la soglia di sostenibilità che hai indicato.':'')+'</p>';
+
+  /* 1 composizione */
+  $("s1").innerHTML='<div class="kv"><div>Capitale prestato</div><div>'+eur(r.C)+'</div><div>Durata</div><div>'+r.N+' anni, '+r.n+' rate mensili</div><div>Tasso</div><div>'+(r.variab?'Euribor '+pct(V("euribor"))+' + spread '+pct(V("spread"))+' = ':'')+pct(r.tasso)+'</div><div>Finalità</div><div>'+esc(r.fin.l)+(r.green?', green':'')+'</div><div>'+((r.fk==="acq1"||r.fk==="acq2")?'Prezzo':'Valore')+' della casa</div><div>'+eur(r.prezzo)+'</div><div>Quota finanziata</div><div>'+(isNaN(r.ltv)?'n.d.':fN.format(r.ltv)+'%')+'</div>'+(r.consap?'<div>Garanzia Fondo prima casa</div><div>'+(r.consap.ok?r.consap.g+'% ('+eur(r.consap.val)+')':'non disponibile')+'</div>':'')+'</div>'+
+    '<p>Eccipienti: istruttoria, perizia, notaio, imposta, incasso rata, polizze, conto corrente. Sono elencati nella sezione 5 con il loro peso in euro.</p>'+(r.xp?'':'<p class="freq">Modalità rapida: le spese sono valori di esempio. Passa alla modalità esperta per inserire le tue.</p>');
+
+  /* 2 indicazioni */
+  $("s2").innerHTML=r.variab?
+    '<p>Hai scelto il <b>variabile</b>: oggi paghi '+eur2(b.rata0)+', domani dipende dall’Euribor. Scambi un risparmio possibile con un rischio certo da gestire.</p><p>Indicato per chi ha margine nel reddito e risparmi da parte. Controindicato per chi arriva già al limite: vedi la sezione 7.</p>':
+    '<p>Hai scelto il <b>fisso</b>: la rata resta '+eur2(b.rata0)+' per '+r.N+' anni, qualunque cosa succeda ai tassi. Paghi la certezza, e la certezza ha un prezzo incluso nel tasso.</p><p>Se i tassi scendono molto, la via d’uscita è la surroga: cambiare banca portando il mutuo, senza spese a tuo carico.</p>';
+
+  /* 3 posologia */
+  var bars='',Y=b.intY.length,step=Y>20?Math.ceil(Y/20):1;
+  for(var y=0;y<Y;y+=step){var I=b.intY[y],K=b.capY[y],T=I+K;bars+='<div class="bar"><span>anno '+(y+1)+'</span><span class="t"><span class="i" style="width:'+(I/T*100).toFixed(1)+'%"></span><span class="c" style="width:'+(K/T*100).toFixed(1)+'%"></span></span></div>';}
+  $("s3").innerHTML='<p>Una rata al mese da <b>'+eur2(b.rata0)+'</b> per '+r.n+' mesi. Assumere a stomaco pieno di stipendio.</p>'+
+    calcBox("Rata = C × i / (1 − (1 + i)^−n)\nC = "+eur(r.C)+"   i = "+pct(r.tasso)+" / 12 = "+fP.format(r.tasso/12)+"% al mese   n = "+r.n+"\nRata = "+eur2(b.rata0)+"\nInteressi totali = rata × n − C = "+eur(b.totI))+
+    '<div class="legend"><span><i style="background:var(--red)"></i>interessi</span><span><i style="background:var(--blue)"></i>capitale</span></div><div class="bars" aria-label="Quota interessi e capitale per anno">'+bars+'</div>';
+
+  /* 4 avvertenze */
+  $("s4").innerHTML='<p>Il <b>TAN</b> è il prezzo del denaro. Il <b>TAEG</b> è il prezzo del mutuo, cioè il TAN più le spese. In vetrina c’è quasi sempre il primo.</p>'+
+    '<div class="kv"><div>TAN</div><div>'+pct(r.tasso)+'</div><div>TAEG ricalcolato qui</div><div>'+(isNaN(r.taeg)?'n.d.':pct(r.taeg))+'</div>'+(isNaN(r.taegB)?'':'<div>TAEG dichiarato dalla banca</div><div>'+pct(r.taegB)+'</div>')+'</div>'+
+    calcBox("TAEG = tasso annuo che rende uguali i soldi ricevuti e quelli restituiti.\nRicevuti: capitale − istruttoria − perizia − imposta = "+eur(r.C-c.istr-c.perizia-r.imposta)+"\nRestituiti ogni mese: rata + incasso + quota mensile di comunicazioni, polizza incendio, conto"+(c.vitaReq?", polizza vita":"")+"\nIl notaio è escluso, come nel TAEG ufficiale. La polizza vita entra solo se è una condizione del mutuo.")+
+    '<div class="kv"><div>Capitale</div><div>'+eur(r.C)+'</div><div>Interessi</div><div>'+eur(b.totI)+'</div><div>Spese iniziali</div><div>'+eur(r.iniziali)+'</div><div>Spese ricorrenti</div><div>'+eur(r.incassoTot+r.comunTot)+'</div><div>Polizze</div><div>'+eur(r.incendioTot+r.vitaTot)+'</div><div>Conto corrente</div><div>'+eur(r.contoTot)+'</div><div class="tot">Totale che restituisci</div><div class="tot">'+eur(r.restituito)+'</div></div>';
+
+  /* 6 interazioni */
+  var flag75=r.xp&&r.redAnn>75000;
+  $("s6").innerHTML=(r.detrOn?
+    '<p><b>Detrazione degli interessi.</b> Per '+esc(r.fin.l)+(r.sur?' (finalità originaria: acquisto prima casa)':'')+' recuperi il 19% degli interessi pagati, fino a '+eur2(r.tetto)+' di interessi l’anno (massimo '+eur(r.tetto*LIM.detr)+'). Su tutta la durata vale circa <b>'+eur(r.detr.tot)+'</b>'+(S.intest==="2"&&r.xp?', da dividere tra i due intestatari secondo le quote':'')+'. Non è uno sconto sulla rata: torna con la dichiarazione dei redditi.</p>'+
+    (r.prop<1?'<p>Il mutuo supera il prezzo della casa: la detrazione vale solo sulla parte usata per l’acquisto ('+fN.format(r.prop*100)+'%).</p>':'')+
+    (flag75?'<p class="bad">Reddito sopra 75.000 €: per i mutui stipulati dal 2025 la detrazione potrebbe essere ridotta dal riordino delle detrazioni. Le fonti non concordano: verifica con il tuo commercialista.</p>':'')+
+    calcBox("Per ogni anno: 19% × min(interessi dell’anno × "+fN.format(r.prop*100)+"%, "+eur2(r.tetto)+")\nPrimo anno: interessi "+eur(b.intY[0]||0)+" → detrazione "+eur(r.detr.y[0]||0)):
+    '<p><b>Detrazione degli interessi:</b> nessuna per '+esc(r.fin.l)+(r.sur?' se il mutuo originario non era per la prima casa':'')+'. Imposta sostitutiva: '+pct(r.impAl)+'.'+(r.fk==="acq2"?' Se la casa è un investimento da affittare, i conti fiscali veri li fa il tuo commercialista.':'')+'</p>')+
+    '<p><b>Rata e reddito.</b> '+(isNaN(r.rr)?'Inserisci il reddito netto mensile.':'La rata pesa il <b class="'+(r.rr>r.soglia?'bad':'good')+'">'+fN.format(r.rr)+'%</b> del reddito netto. Soglia indicata: '+fN.format(r.soglia)+'%.')+'</p>';
+
+  /* 7 sovradosaggio */
+  h='<p>'+(r.variab?'Ecco cosa succede alla rata se l’Euribor sale e resta lì.':'Hai il fisso: il sovradosaggio non ti riguarda. Ecco cosa avresti rischiato con un variabile allo stesso tasso di partenza.')+'</p>';
+  h+='<div class="scroll"><table class="st"><thead><tr><th>Scenario</th><th>Tasso</th><th>Rata</th><th>Al mese in più</th><th>Rata / reddito</th></tr></thead><tbody>';
+  h+='<tr><td>Oggi</td><td>'+pct(r.tasso)+'</td><td>'+eur(b.rata0)+'</td><td>–</td><td>'+(isNaN(r.rr)?'–':fN.format(r.rr)+'%')+'</td></tr>';
+  r.stress.forEach(function(s){h+='<tr><td>+'+s.d+(s.d===1?' punto':' punti')+'</td><td>'+pct(s.t)+'</td><td>'+eur(s.R)+'</td><td class="bad">+'+eur(s.diff)+'</td><td'+(s.rr>r.soglia?' class="bad"':'')+'>'+(isNaN(s.rr)?'–':fN.format(s.rr)+'%')+'</td></tr>';});
+  h+='</tbody></table></div><p class="freq">Ipotesi semplificata: il tasso sale subito e resta alto per tutta la durata. Serve a misurare il margine, non a prevedere il futuro.</p>';
+  $("s7").innerHTML=h;
+
+  /* 8 estinzione */
+  if(!r.ex){
+    $("s8").innerHTML='<p>Restituire prima si può, e per i mutui di persone fisiche per comprare o ristrutturare casa la banca non può chiedere penali. Imposta “Interruzione anticipata” nella colonna dei dati per vedere quanto risparmi.</p><p>Se i tassi scendono, c’è anche la surroga: porti il mutuo in un’altra banca senza costi a tuo carico.</p>';
+  }else{
+    var e=r.ex,D=e.durata,Rr=e.rata,lbl={annua:"una rata in più ogni anno",mensile:eur(e.cfg.imp)+" in più ogni mese",unatantum:eur(e.cfg.imp)+" una tantum nell’anno "+e.cfg.anno}[e.cfg.tipo];
+    h='<p>Ipotesi: <b>'+esc(lbl)+'</b>. Il versamento va sempre a ridurre il capitale: non si può “dedicare agli interessi”, ed è proprio per questo che si risparmia.</p>';
+    h+='<div class="scroll"><table class="st"><thead><tr><th></th><th>Interessi totali</th><th>Risparmio</th><th>Durata</th><th>Rata finale</th></tr></thead><tbody>'+
+      '<tr><td>Nessun extra</td><td>'+eur(b.totI)+'</td><td>–</td><td>'+durata(b.mesi)+'</td><td>'+eur(b.rata0)+'</td></tr>'+
+      '<tr><td>Accorcio la durata</td><td>'+eur(D.totI)+'</td><td class="good">'+eur(e.risp.durata)+'</td><td>'+durata(D.mesi)+'</td><td>'+eur(D.rataFin)+'</td></tr>'+
+      '<tr><td>Abbasso la rata</td><td>'+eur(Rr.totI)+'</td><td>'+eur(e.risp.rata)+'</td><td>'+durata(Rr.mesi)+'</td><td>'+eur(Rr.rataFin)+'</td></tr></tbody></table></div>';
+    h+='<p>Versi in anticipo in tutto '+eur(e.sel.exTot)+'. '+(e.risp.durata>e.risp.rata?'Accorciare la durata fa risparmiare '+eur(e.risp.durata-e.risp.rata)+' in più. Se non lo chiedi per iscritto, di norma ti abbassano la rata.':'')+'</p>';
+    if(r.detrOn&&e.detrPersa>0)h+='<p>Effetto collaterale: meno interessi vuol dire anche meno detrazione, circa '+eur(e.detrPersa)+' in meno nella scelta “'+(e.cfg.modo==="durata"?"accorcio la durata":"abbasso la rata")+'”.</p>';
+    h+='<p><b>Estinguere o tenere i soldi?</b> Se gli stessi soldi rendessero il '+pct(e.alt)+' netto, alla scadenza originale '+(e.W>=0?'estinguere ti lascerebbe <b class="good">'+eur(e.W)+' in più</b>.':'tenerli o investirli ti lascerebbe <b class="bad">'+eur(-e.W)+' in più</b> che estinguere.')+' Prima di estinguere, tieni da parte un fondo per gli imprevisti: i soldi dati alla banca non tornano indietro.</p>';
+    h+=calcBox("Ogni mese: differenza tra quello che pagheresti senza extra e quello che paghi con gli extra (rata + versamenti + incasso).\nLa differenza viene investita o prelevata al "+pct(e.alt)+" annuo netto, e a fine anno si aggiunge la differenza di detrazione.\nRisultato alla scadenza originale di "+r.N+" anni: "+(e.W>=0?"+":"")+eur(e.W)+" a favore dell’estinzione.");
+    h+='<p class="freq">Penali: nulle per legge per i mutui di persone fisiche per acquisto o ristrutturazione di immobili abitativi o per l’attività. Chiedi sempre alla banca il conteggio scritto e ricorda gli interessi maturati tra l’ultima rata e il versamento.</p>';
+    $("s8").innerHTML=h;
+  }
+
+  /* 9 controindicazioni */
+  var ci=[];
+  if(!isNaN(r.rr)&&r.rr>r.soglia)ci.push("La rata supera il "+fN.format(r.soglia)+"% del reddito netto: ogni imprevisto diventa un problema.");
+  if(r.variab&&!isNaN(r.stress[1].rr)&&r.stress[1].rr>r.soglia)ci.push("Con +2 punti di Euribor la rata arriva al "+fN.format(r.stress[1].rr)+"% del reddito. Il variabile qui è un azzardo.");
+  if(r.xp&&V("fondo")<b.rata0*6)ci.push("Dopo il rogito ti restano meno di sei rate da parte. Un mese storto e sei in ritardo.");
+  if(r.consap&&!r.consap.ok)ci.push("Hai contato sulla garanzia Consap, ma il mutuo supera "+eur(CONSAP_MAX)+": senza garanzia la banca potrebbe cambiare condizioni.");
+  if(c.vitaReq)ci.push("Polizza vita presentata come condizione: oltre a incendio e scoppio, nessuna polizza può essere imposta. Chiedi i due preventivi alternativi.");
+  if(r.ltv>LIM.ltv*100)ci.push("Finanzi più dell’80% del prezzo: confronta almeno un’altra offerta.");
+  if(!isNaN(r.taegB)&&!isNaN(r.taeg)&&Math.abs(r.taegB-r.taeg)>0.1)ci.push("Il TAEG dichiarato non coincide con i costi che conosci. Non firmare finché non sai cosa c’è dentro.");
+  $("s9").innerHTML=ci.length?'<p>Non firmare, o almeno non oggi, se:</p><ul class="contra">'+ci.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul>':'<p>Con i dati inseriti non emergono controindicazioni gravi. Questo non è un via libera: è l’assenza di allarmi evidenti.</p>';
+
+  /* 10 scadenza */
+  $("s10").innerHTML='<p>Il PIES ha una data di validità: dopo quella, l’offerta può cambiare. Chiedi il PIES ad almeno due banche e confrontali voce per voce, non rata per rata.</p><p>Conservare questo foglio lontano dalla fretta. Il giorno del rogito non è il giorno giusto per leggere il contratto.</p>';
+
+  /* verdetto */
+  $("verdict").textContent=(over?"Controindicato. ":"")+vi;
+  $("verdict2").textContent="Indice di restituzione: "+fP.format(ratio)+" € per ogni euro ricevuto. Costo reale "+eur(r.costoTot)+".";
+  window.__last=r;
+}
+
+/* ---------- Eventi ---------- */
+var tmr;
+$("form").addEventListener("input",function(e){if(!e.target.dataset.k)return;readField(e.target);clearTimeout(tmr);tmr=setTimeout(function(){save();render();},150);});
+$("form").addEventListener("change",function(e){if(!e.target.dataset.k)return;readField(e.target);save();render();});
+document.querySelectorAll(".levels button").forEach(function(b){b.addEventListener("click",function(){setLv(b.dataset.lv);save();render();});});
+$("bReset").addEventListener("click",function(){var lv=S.lv;S=JSON.parse(JSON.stringify(DEF));S.lv=lv;fill();save();render();toast("Valori di esempio ripristinati");});
+/* ---------- PDF in stile bugiardino ---------- */
+var JSPDF_URL="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+var dlP=(window.claude&&typeof window.claude.use==="function")?window.claude.use("downloads").catch(function(){return null;}):Promise.resolve(null);
+function loadJsPDF(){
+  return new Promise(function(res,rej){
+    if(window.jspdf&&window.jspdf.jsPDF)return res();
+    var s=document.createElement("script");s.src=JSPDF_URL;s.onload=function(){res();};s.onerror=function(){rej(new Error("load"));};document.head.appendChild(s);
+  });
+}
+function txt(el){return (el?el.textContent:"").replace(/\s+/g," ").trim();}
+function buildPdf(){
+  var jsPDF=window.jspdf.jsPDF,doc=new jsPDF({unit:"mm",format:"a4"});
+  var K={ink:[27,32,38],blue:[29,79,145],red:[179,18,46],muted:[86,97,108],rule:[190,199,207],soft:[238,242,245],ok:[44,110,73]};
+  var PW=210,PH=297,M=13,G=8,NC=2,CW=(PW-2*M-G)/NC,col=0,y=M,top=M,firstTop=M;
+  function LH(s){return s*0.3528*1.28;}
+  function F(s,st,c){doc.setFont("helvetica",st||"normal");doc.setFontSize(s);doc.setTextColor(c[0],c[1],c[2]);}
+  function X(){return M+col*(CW+G);}
+  function brk(h){if(y+h>PH-M-6){col++;if(col>=NC){doc.addPage();col=0;top=M;}y=top;}}
+  function para(t,o){o=o||{};if(!t)return;var s=o.size||8,ind=o.indent||0;F(s,o.style,o.color||K.ink);
+    var ls=doc.splitTextToSize(t,CW-ind);for(var i=0;i<ls.length;i++){brk(LH(s));doc.text(ls[i],X()+ind,y+LH(s)*0.78);y+=LH(s);}y+=(o.after==null?1.3:o.after);}
+  function full(t,o){o=o||{};var s=o.size||8;F(s,o.style,o.color||K.ink);var ls=doc.splitTextToSize(t,PW-2*M-(o.indent||0));
+    for(var i=0;i<ls.length;i++){doc.text(ls[i],M+(o.indent||0),y+LH(s)*0.78);y+=LH(s);}y+=(o.after==null?1.3:o.after);}
+  function hline(x1,x2,yy,w,c){doc.setDrawColor(c[0],c[1],c[2]);doc.setLineWidth(w);doc.line(x1,yy,x2,yy);}
+
+  /* --- intestazione a tutta larghezza --- */
+  F(7.5,"bold",K.ink);doc.text("FOGLIO ILLUSTRATIVO: INFORMAZIONI PER IL MUTUATARIO",M,y+3);
+  F(7,"normal",K.muted);doc.text("Generato il "+new Date().toLocaleDateString("it-IT"),PW-M,y+3,{align:"right"});y+=6;
+  F(30,"bold",K.ink);doc.text("Mutuo",M,y+10);var tw=doc.getTextWidth("Mutuo");F(10,"bold",K.ink);doc.text("®",M+tw+0.8,y+4);y+=13;
+  full(txt($("prod")),{size:9,color:K.muted,after:2});
+  hline(M,PW-M,y,0.6,K.ink);hline(M,PW-M,y+0.9,0.25,K.ink);y+=4;
+  var warn=[].map.call(document.querySelectorAll(".warnbox p"),txt);
+  F(7.5,"normal",K.ink);var wl=[];warn.forEach(function(w){wl=wl.concat(doc.splitTextToSize(w,PW-2*M-6));});
+  var wh=wl.length*LH(7.5)+4;doc.setDrawColor(27,32,38);doc.setLineWidth(0.5);doc.rect(M,y,PW-2*M,wh);
+  var yy=y+2;wl.forEach(function(l,i){F(7.5,i===0?"bold":"normal",K.ink);doc.text(l,M+3,yy+LH(7.5)*0.78);yy+=LH(7.5);});y+=wh+2.5;
+  full(txt(document.querySelector(".legalnote")).replace(" Leggi le avvertenze legali."," Avvertenze legali complete in fondo al foglio."),{size:7,style:"italic",color:K.muted,after:2.5});
+  /* in breve */
+  var bp=[].map.call(document.querySelectorAll("#brief p"),txt);F(8.5,"normal",K.ink);var bl=[];bp.forEach(function(b){bl=bl.concat(doc.splitTextToSize(b,PW-2*M-10));});
+  var bh=bl.length*LH(8.5)+LH(9.5)+5;doc.setFillColor(238,242,245);doc.rect(M,y,PW-2*M,bh,"F");doc.setFillColor(179,18,46);doc.rect(M,y,1.6,bh,"F");
+  F(9.5,"bold",K.ink);doc.text("In breve",M+5,y+2+LH(9.5)*0.78);yy=y+2+LH(9.5);
+  bl.forEach(function(l){F(8.5,"normal",K.ink);doc.text(l,M+5,yy+LH(8.5)*0.78);yy+=LH(8.5);});y+=bh+4;
+  hline(M,PW-M,y,0.25,K.ink);y+=4;top=y;firstTop=y;
+
+  /* --- sezioni in colonne --- */
+  function walk(node){
+    [].forEach.call(node.children,function(ch){
+      if(ch.classList.contains("calc"))return;
+      var tag=ch.tagName;
+      if(tag==="P"){var fr=ch.classList.contains("freq");para(txt(ch),{size:fr?6.8:8,style:fr?"italic":"normal",color:fr?K.muted:(ch.classList.contains("bad")?K.red:K.ink)});}
+      else if(tag==="UL"&&ch.classList.contains("fx")){
+        [].forEach.call(ch.children,function(li){
+          var t=txt(li.querySelector("b")),e=txt(li.querySelector(".eur")),p=txt(li.querySelector("p"));
+          F(8,"bold",K.ink);var tl=doc.splitTextToSize(t,CW-(e?24:0));brk(LH(8)*tl.length+LH(7.4));
+          tl.forEach(function(l,i){F(8,"bold",K.ink);doc.text(l,X(),y+LH(8)*0.78);if(i===0&&e){F(8,"bold",K.red);doc.text(e,X()+CW,y+LH(8)*0.78,{align:"right"});}y+=LH(8);});
+          para(p,{size:7.4,color:K.muted,after:1.8});
+        });
+      }
+      else if(tag==="UL"){[].forEach.call(ch.children,function(li){var s=7.8;F(s,"normal",K.ink);var ls=doc.splitTextToSize(txt(li),CW-4);
+        ls.forEach(function(l,i){brk(LH(s));F(s,"normal",K.ink);if(i===0)doc.text("•",X()+0.5,y+LH(s)*0.78);doc.text(l,X()+4,y+LH(s)*0.78);y+=LH(s);});y+=0.8;});y+=0.8;}
+      else if(ch.classList.contains("kv")){
+        var cs=ch.children;for(var i=0;i+1<cs.length;i+=2){var tot=cs[i].classList.contains("tot"),s=tot?8.2:7.8;
+          F(s,tot?"bold":"normal",tot?K.ink:K.muted);var ll=doc.splitTextToSize(txt(cs[i]),CW-34);brk(LH(s)*ll.length+(tot?1.5:0));
+          if(tot){hline(X(),X()+CW,y+0.3,0.3,K.ink);y+=1;}
+          ll.forEach(function(l,j){F(s,tot?"bold":"normal",tot?K.ink:K.muted);doc.text(l,X(),y+LH(s)*0.78);if(j===0){F(s,"bold",K.ink);doc.text(txt(cs[i+1]),X()+CW,y+LH(s)*0.78,{align:"right"});}y+=LH(s);});}
+        y+=1.5;}
+      else if(ch.classList.contains("scroll")){
+        var rows=[].map.call(ch.querySelectorAll("tr"),function(tr){return [].map.call(tr.children,function(td){return {t:txt(td),h:td.tagName==="TH",bad:td.classList.contains("bad"),good:td.classList.contains("good")};});});
+        var nc=rows[0].length,w0=CW*0.26,wi=(CW-w0)/(nc-1),s=6.8;
+        rows.forEach(function(row,ri){F(s,"bold",K.ink);var cells=row.map(function(c,ci){return doc.splitTextToSize(c.t||"",(ci?wi:w0)-1.5);});
+          var rh=Math.max.apply(null,cells.map(function(c){return c.length;}))*LH(s)+1.2;brk(rh);
+          row.forEach(function(c,ci){var col_=c.h?K.blue:(c.bad?K.red:(c.good?K.ok:K.ink));F(s,c.h||ci===0?"bold":"normal",col_);
+            var cx=ci===0?X():X()+w0+wi*ci-0.5;cells[ci].forEach(function(l,li){doc.text(l,cx,y+0.6+LH(s)*(li+0.78),ci===0?{}:{align:"right"});});});
+          y+=rh;hline(X(),X()+CW,y-0.3,ri===0?0.35:0.15,ri===0?K.ink:K.rule);});
+        y+=2;}
+      else if(ch.classList.contains("legend")){brk(LH(7)+1);F(6.8,"normal",K.muted);doc.setFillColor(179,18,46);doc.rect(X(),y+0.6,2.2,2.2,"F");doc.text("interessi",X()+3.2,y+2.5);
+        doc.setFillColor(29,79,145);doc.rect(X()+18,y+0.6,2.2,2.2,"F");doc.text("capitale",X()+21.2,y+2.5);y+=LH(7)+1.2;}
+      else if(ch.classList.contains("bars")){
+        [].forEach.call(ch.children,function(b){var lab=txt(b.querySelector("span")),pi=parseFloat(b.querySelector(".i").style.width)||0,bw=CW-15;brk(2.6);
+          F(6,"normal",K.muted);doc.text(lab,X(),y+1.9);doc.setFillColor(179,18,46);doc.rect(X()+14,y+0.3,bw*pi/100,1.9,"F");
+          doc.setFillColor(29,79,145);doc.rect(X()+14+bw*pi/100,y+0.3,bw*(100-pi)/100,1.9,"F");y+=2.6;});y+=2;}
+      else if(ch.children.length)walk(ch);
+      else if(txt(ch))para(txt(ch));
+    });
+  }
+  [].forEach.call(document.querySelectorAll("details.sec"),function(d){
+    var n=txt(d.querySelector(".n")),h=txt(d.querySelector("summary h2"));
+    brk(LH(10)+LH(8)*3);y+=1;F(10,"bold",K.blue);doc.text(n+".  "+h,X(),y+LH(10)*0.78);y+=LH(10)+1;
+    walk(d.querySelector(".body"));y+=1.5;
+  });
+  /* verdetto */
+  var v1=txt($("verdict")),v2=txt($("verdict2"));F(11,"bold",K.ink);var vl=doc.splitTextToSize(v1,CW-6);F(6.8,"italic",K.muted);var vl2=doc.splitTextToSize(v2,CW-6);
+  var vh=4+LH(7.5)+vl.length*LH(11)+vl2.length*LH(6.8)+3;brk(vh+2);y+=1;
+  doc.setDrawColor(179,18,46);doc.setLineWidth(0.6);doc.rect(X(),y,CW,vh);yy=y+2.5;
+  F(7.5,"bold",K.red);doc.text("TENERE FUORI DALLA PORTATA DEI VENDITORI",X()+3,yy+LH(7.5)*0.78);yy+=LH(7.5)+0.6;
+  vl.forEach(function(l){F(11,"bold",K.ink);doc.text(l,X()+3,yy+LH(11)*0.78);yy+=LH(11);});
+  vl2.forEach(function(l){F(6.8,"italic",K.muted);doc.text(l,X()+3,yy+LH(6.8)*0.78);yy+=LH(6.8);});y+=vh+4;
+  /* avvertenze legali */
+  var lg=document.querySelector(".legal");brk(LH(8.5)+LH(6.6)*4);F(8.5,"bold",K.ink);doc.text(txt(lg.querySelector("h2")),X(),y+LH(8.5)*0.78);y+=LH(8.5)+0.8;
+  para(txt(lg.querySelector("p")),{size:6.6,color:K.ink});
+  [].forEach.call(lg.querySelectorAll("li"),function(li){var s=6.6,ls=doc.splitTextToSize(txt(li),CW-3.5);ls.forEach(function(l,i){brk(LH(s));F(s,"normal",K.ink);if(i===0)doc.text("•",X()+0.3,y+LH(s)*0.78);doc.text(l,X()+3.5,y+LH(s)*0.78);y+=LH(s);});y+=0.6;});
+  y+=1.5;
+  [].forEach.call(document.querySelectorAll(".foot > p"),function(p){para(txt(p),{size:6.6,color:K.muted,after:0.8});});
+  para("Il libro: amazon.it/dp/B0HL52X9VB  ·  Capitolo 1 gratis: fuffalibrary.lemonsqueezy.com",{size:6.6,color:K.blue});
+  /* piega centrale e piè di pagina */
+  var np=doc.getNumberOfPages();
+  for(var p=1;p<=np;p++){doc.setPage(p);doc.setDrawColor(190,199,207);doc.setLineWidth(0.2);doc.setLineDashPattern([0.8,1.2],0);
+    doc.line(PW/2,p===1?firstTop:M,PW/2,PH-M-4);doc.setLineDashPattern([],0);
+    F(6.4,"normal",K.muted);doc.text("Il Bugiardino del Mutuo. Strumento informativo, esemplificativo e satirico: non è consulenza.",M,PH-8);
+    doc.text("Pagina "+p+" di "+np,PW-M,PH-8,{align:"right"});}
+  return doc;
+}
+window.__buildPdf=buildPdf;
+function pdfName(){var d=new Date();return "bugiardino-mutuo-"+d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")+".pdf";}
+$("bPrint").addEventListener("click",function(){
+  var btn=$("bPrint");btn.disabled=true;var old=btn.textContent;btn.textContent="Preparo il PDF…";
+  loadJsPDF().then(function(){
+    var doc=buildPdf(),name=pdfName();
+    return dlP.then(function(dl){
+      if(dl){return dl.save({filename:name,data:doc.output("blob")}).then(function(){toast("PDF pronto");},function(e){toast(e&&e.code==="declined"?"Download annullato":"Download non disponibile qui");});}
+      doc.save(name);toast("PDF pronto");
+    });
+  }).catch(function(){toast("Non riesco a creare il PDF: apro la stampa");document.querySelectorAll("details").forEach(function(d){d.open=true;});window.print();})
+  .then(function(){btn.disabled=false;btn.textContent=old;});
+});
+$("bCopy").addEventListener("click",function(){
+  var r=window.__last;if(!r)return;
+  var t="Il Bugiardino del mio mutuo\n"+$("brief").innerText+"\nVerdetto: "+$("verdict").textContent+"\n\nLeggere attentamente prima di firmare.";
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast("Verdetto copiato");},function(){toast("Copia non riuscita: seleziona il testo a mano");});}
+  else toast("Copia non disponibile in questo browser");
+});
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");setTimeout(function(){t.classList.remove("on");},1800);}
+
+fill();render();
+})();
+</script>
+</body>
+</html>
